@@ -1,1 +1,5 @@
+baseURL = "http://radoondas.io/"
+languageCode = "en-us"
+title = "radoondas.io"
 
+theme="cleanwhite"
