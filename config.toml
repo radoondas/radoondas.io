@@ -1,5 +1,152 @@
-baseURL = "http://radoondas.io/"
+baseURL = "https://radoondas.io/"
 languageCode = "en-us"
 title = "radoondas.io"
+theme="hugo-brok"
+themesDir = "./themes/"
 
-theme="hugo-theme-cleanwhite"
+publishDir = "public"
+
+paginate = 5
+rssLimit = 10
+
+[params]
+    name = "Rado Ondas"
+    description = "description"
+    email = "rado@radoondas.io"
+    address = "Slovakia"
+    year = 2020
+    avatar = "images/rado.jpg"
+    background = ""
+    favicon = "images/favicon.png"
+    DateForm = "January 2, 2006"
+
+    headerEnableFollowme = true
+
+    logo = "images/logo.png"
+    titleFontFamily="'Raleway', sans-serif"
+    subTitleFontFamily="font-family: 'Raleway', sans-serif;"
+    # body style font family is defined in styles.css
+    aboutMe = '''
+    Line 1
+    Line2
+    Line3
+    '''
+    themeURL = "https://github.com/radoondas/hugo-brok"
+    siteSourceCode = "https://github.com/radoondas/radoondas.io"
+
+[[menu.main]]
+    name = "HOME"
+    url = "/"
+    weight = 1
+[[menu.main]]
+    name = "BLOG"
+    url = "/posts/"
+    weight = 3
+[[menu.main]]
+    name = "ABOUT"
+    url = "/about/"
+    weight = 5
+
+[[menu.dropdown]]
+    name = "Netatmobeat"
+    url = "/projects/netatmobeat/"
+[[menu.dropdown]]
+    name = "Owmbeat"
+    url = "/projects/owmbeat/"
+[[menu.dropdown]]
+    name = "Earthquakebeat"
+    url = "/projects/earthquakebeat/"
+[[menu.dropdown]]
+    name = "Safecastbeat"
+    url = "/projects/safecastbeat/"
+
+[taxonomies]
+    category = "categories"
+    tag = "tags"
+    project = "projects"
+
+[params.disqus]
+    site = "radoondas-io.disqus.com"
+
+[params.sharethis]
+    property = "5c157002423bba0012ec399b"
+    enabled = true
+    custom = true
+
+[params.google.analytics]
+    enabled = false
+    trackerID = "UA-158793938-1"
+
+[[params.social]]
+	title = "twitter"
+	url = "https://twitter.com/radoondas"
+    icon = "fab fa-twitter"
+    footer = true
+    sharethis = true
+    network = "twitter"
+    
+[[params.social]]
+	title = "linkedin"
+	url = "https://www.linkedin.com/in/radoondas"
+    icon = "fab fa-linkedin"
+    footer = false
+    sharethis = true
+    network = "linkedin"
+
+[[params.social]]
+	title = "github"
+	url = "https://github.com/radoondas"
+    icon = "fab fa-github"
+    footer = true
+    sharethis = false
+    network = ""
+
+[[params.social]]
+	title = "email"
+	url = "mailto:rado@radoondas.io"
+    #icon = "fas fa-envelope"
+    icon = "fas fa-at"
+    footer = false
+    sharethis = true
+    network = "email"
+
+[[params.social]]
+    title = "rss"
+    url = "http://localhost:1313/index.xml"
+#    url = "https://radoondas.io/index.xml"
+    icon = "fas fa-rss-square"
+    footer = "true"
+    sharethis = "true"
+    network = "rss"
+
+[params.elasticSiteSearch]
+    enable = true
+    script="""<script type="text/javascript">
+      (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+      (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+      e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+      })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+      _st('install','6iuFaExTVvgZ7hMLYixx','2.0.0');
+      </script>
+    """
+[params.widgets]
+    categories = true
+    tags = true
+    search = true
+
+[sitemap]
+  changefreq = "monthly"
+  filename = "sitemap.xml"
+  priority = 0.5
+
+[markup]
+  [markup.highlight]
+    codeFences = true
+    guessSyntax = false
+    hl_Lines = ""
+    lineNoStart = 1
+    lineNos = false
+    lineNumbersInTable = true
+    noClasses = true
+    style = "github"
+    tabWidth = 4
