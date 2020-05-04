@@ -69,9 +69,9 @@ rssLimit = 10
     site = "radoondas-io.disqus.com"
 
 [params.sharethis]
-    property = "5c157002423bba0012ec399b"
+    property = "5e5e8049cdddeb00196ad32e"
     enabled = true
-    custom = true
+    custom = false
 
 [params.google.analytics]
     enabled = false
@@ -82,24 +82,18 @@ rssLimit = 10
 	url = "https://twitter.com/radoondas"
     icon = "fab fa-twitter"
     footer = true
-    sharethis = true
-    network = "twitter"
     
 [[params.social]]
 	title = "linkedin"
 	url = "https://www.linkedin.com/in/radoondas"
     icon = "fab fa-linkedin"
     footer = false
-    sharethis = true
-    network = "linkedin"
 
 [[params.social]]
 	title = "github"
 	url = "https://github.com/radoondas"
     icon = "fab fa-github"
     footer = true
-    sharethis = false
-    network = ""
 
 [[params.social]]
 	title = "email"
@@ -107,8 +101,6 @@ rssLimit = 10
     #icon = "fas fa-envelope"
     icon = "fas fa-at"
     footer = false
-    sharethis = true
-    network = "email"
 
 [[params.social]]
     title = "rss"
@@ -116,8 +108,6 @@ rssLimit = 10
 #    url = "https://radoondas.io/index.xml"
     icon = "fas fa-rss-square"
     footer = "true"
-    sharethis = "true"
-    network = "rss"
 
 [params.elasticSiteSearch]
     enable = true
