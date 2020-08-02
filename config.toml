@@ -47,18 +47,18 @@ rssLimit = 10
     url = "/about/"
     weight = 5
 
-[[menu.dropdown]]
-    name = "Netatmobeat"
-    url = "/projects/netatmobeat/"
-[[menu.dropdown]]
-    name = "Owmbeat"
-    url = "/projects/owmbeat/"
-[[menu.dropdown]]
-    name = "Earthquakebeat"
-    url = "/projects/earthquakebeat/"
-[[menu.dropdown]]
-    name = "Safecastbeat"
-    url = "/projects/safecastbeat/"
+#[[menu.dropdown]]
+#    name = "Netatmobeat"
+#    url = "/projects/netatmobeat/"
+#[[menu.dropdown]]
+#    name = "Owmbeat"
+#    url = "/projects/owmbeat/"
+#[[menu.dropdown]]
+#    name = "Earthquakebeat"
+#    url = "/projects/earthquakebeat/"
+#[[menu.dropdown]]
+#    name = "Safecastbeat"
+#    url = "/projects/safecastbeat/"
 
 [taxonomies]
     category = "categories"
