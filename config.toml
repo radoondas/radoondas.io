@@ -104,8 +104,8 @@ rssLimit = 10
 
 [[params.social]]
     title = "rss"
-    url = "http://localhost:1313/index.xml"
-#    url = "https://radoondas.io/index.xml"
+    #url = "http://localhost:1313/index.xml"
+    url = "https://radoondas.io/index.xml"
     icon = "fas fa-rss-square"
     footer = "true"
 
