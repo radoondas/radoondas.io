@@ -74,7 +74,7 @@ rssLimit = 10
     custom = false
 
 [params.google.analytics]
-    enabled = false
+    enabled = true
     trackerID = "UA-158793938-1"
 
 [[params.social]]
