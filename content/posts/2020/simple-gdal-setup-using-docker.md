@@ -52,15 +52,18 @@ Note: The name of the saved script from the previous step is `dogr2ogr` in my ca
 1. Ingest content of the GeoJSON file directly into Elasticsearch
 
 ```bash
-dogr2ogr -lco INDEX_NAME=index-name  "ES:http://elastic:changeme@localhost:9200"  "$(pwd)/file-name.geojson"
+dogr2ogr -lco INDEX_NAME=index-name  "ES:http://elastic:changeme@localhost:9200"  \
+  "$(pwd)/file-name.geojson"
 ```
 2. Ingest Shape file directly into Elasticsearch
 ```bash
-dogr2ogr -lco INDEX_NAME=index-name  "ES:http://elastic:changeme@localhost:9200"  "$(pwd)/file-name.shp"
+dogr2ogr -lco INDEX_NAME=index-name  "ES:http://elastic:changeme@localhost:9200"  \
+  "$(pwd)/file-name.shp"
 ```
 3. Convert Shape file to GeoJSON format using full path to the script
 ```bash
-~/opt/bin/dogr2ogr -f GeoJSON "$(pwd)/file-name.geojson" "$(pwd)/file-name.shp" -lco RFC7946=YES
+~/opt/bin/dogr2ogr -f GeoJSON "$(pwd)/file-name.geojson" "$(pwd)/file-name.shp" \
+  -lco RFC7946=YES
 ```
 {{< notebox color="is-warning is-light" >}}Note: <code>$(pwd)</code> variable in above examples is important as you must use full paths to the file in
 the context of the Docker to work correctly with the input.{{< /notebox >}}

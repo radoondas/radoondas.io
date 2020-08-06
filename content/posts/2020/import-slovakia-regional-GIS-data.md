@@ -59,31 +59,37 @@ library.
 following commands.{{< /notebox >}}
 
 ```bash
-$ ogr2ogr -lco INDEX_NAME=kraje -lco NOT_ANALYZED_FIELDS={ALL} "ES:http://localhost:9200" "$(pwd)/kraj_1.shp"
-$ ogr2ogr -lco INDEX_NAME=obce -lco NOT_ANALYZED_FIELDS={ALL} "ES:http://localhost:9200" "$(pwd)/obec_1.shp"  
-$ ogr2ogr -lco INDEX_NAME=okresy -lco NOT_ANALYZED_FIELDS={ALL} "ES:http://localhost:9200" "$(pwd)/okres_1.shp"
+$ ogr2ogr -lco INDEX_NAME=kraje -lco NOT_ANALYZED_FIELDS={ALL} \
+  "ES:http://localhost:9200" "$(pwd)/kraj_1.shp"
+$ ogr2ogr -lco INDEX_NAME=obce -lco NOT_ANALYZED_FIELDS={ALL} \
+  "ES:http://localhost:9200" "$(pwd)/obec_1.shp"  
+$ ogr2ogr -lco INDEX_NAME=okresy -lco NOT_ANALYZED_FIELDS={ALL} \
+  "ES:http://localhost:9200" "$(pwd)/okres_1.shp"
 ```
 
 With the wrapper:
 ```bash
-$ /path/to/dogr2ogr -lco INDEX_NAME=kraje -lco NOT_ANALYZED_FIELDS={ALL} "ES:http://localhost:9200" "$(pwd)/kraj_1.shp"
-$ /path/to/dogr2ogr -lco INDEX_NAME=obce -lco NOT_ANALYZED_FIELDS={ALL} "ES:http://localhost:9200" "$(pwd)/obec_1.shp"  
-$ /path/to/dogr2ogr -lco INDEX_NAME=okresy -lco NOT_ANALYZED_FIELDS={ALL} "ES:http://localhost:9200" "$(pwd)/okres_1.shp"
+$ /path/to/dogr2ogr -lco INDEX_NAME=kraje -lco NOT_ANALYZED_FIELDS={ALL} \ 
+  "ES:http://localhost:9200" "$(pwd)/kraj_1.shp"
+$ /path/to/dogr2ogr -lco INDEX_NAME=obce -lco NOT_ANALYZED_FIELDS={ALL} \
+  "ES:http://localhost:9200" "$(pwd)/obec_1.shp"  
+$ /path/to/dogr2ogr -lco INDEX_NAME=okresy -lco NOT_ANALYZED_FIELDS={ALL} \
+  "ES:http://localhost:9200" "$(pwd)/okres_1.shp"
 ```
 
 In case you need to connect to secured cluster do not hestitate and use authentication `http://user:passw@localhost:9200`.
 ```bash
-$ ogr2ogr -lco INDEX_NAME=<index_name> -lco NOT_ANALYZED_FIELDS={ALL} "ES:http://user:passw@localhost:9200" \
-"$(pwd)/shape_file.shp"
+$ ogr2ogr -lco INDEX_NAME=<index_name> -lco NOT_ANALYZED_FIELDS={ALL} \
+  "ES:http://user:passw@localhost:9200" "$(pwd)/shape_file.shp"
 ```
 
 The above commands will create three new indices in your Elasticsearch cluster. Use simple `_cat` API to check.
 ```bash
 GET _cat/indices/obce,kraje,okresy?v
-health status index  uuid                   pri rep docs.count docs.deleted store.size pri.store.size
-yellow open   okresy 3LYqUkRcTdiBf1XQ0P7h-A   1   1         79            0      5.1mb          5.1mb
-yellow open   obce   T-k8wud0Q5eH2J75nLITmg   1   1       2927            0     26.5mb         26.5mb
-yellow open   kraje  2AA2LM0NRUO9vfqILaZtbg   1   1          8            0      1.8mb          1.8mb
+health status index  uuid   pri rep docs.count docs.deleted store.size pri.store.size
+yellow open   okresy uidA   1   1         79            0      5.1mb          5.1mb
+yellow open   obce   uidB   1   1       2927            0     26.5mb         26.5mb
+yellow open   kraje  uidC   1   1          8            0      1.8mb          1.8mb
 ```
 
 {{< title-h4 >}}Layers in Kibana Maps{{< /title-h4 >}}

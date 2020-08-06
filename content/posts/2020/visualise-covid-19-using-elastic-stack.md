@@ -50,7 +50,7 @@ Columns description as of the publishing of this post. It may change over time. 
 | gender      | Gender, `M` - male, `Ž` - female, `D` - children, `X` - unknown |
 | note_1      | Note 1                                                          |
 | note_2      | Note 2                                                          |
-| healthy     | Healthy - number of people who recovered from the virus             |
+| healthy     | Healthy - number of people who recovered from the virus         |
 | died        | Dead - number people who died                                   |
 | region      | Region                                                          |
 | age         | Age                                                             |
@@ -116,18 +116,21 @@ In the following section, I will describe the minimal steps required to build th
 
    Commands using the GDAL library for the reference (copy/paste might not work depending on your GDAL install method):
 ```bash
-   $ ogr2ogr -lco INDEX_NAME=kraje "ES:http://localhost:9200" -lco NOT_ANALYZED_FIELDS={ALL} "$(pwd)/data/kraje.json"
-   $ ogr2ogr -lco INDEX_NAME=obce "ES:http://localhost:9200" -lco NOT_ANALYZED_FIELDS={ALL} "$(pwd)/data/obce.json"
-   $ ogr2ogr -lco INDEX_NAME=okresy "ES:http://localhost:9200" -lco NOT_ANALYZED_FIELDS={ALL} "$(pwd)/okresy.json"
+   $ ogr2ogr -lco INDEX_NAME=kraje "ES:http://localhost:9200" -lco NOT_ANALYZED_FIELDS={ALL} \
+     "$(pwd)/data/kraje.json"
+   $ ogr2ogr -lco INDEX_NAME=obce "ES:http://localhost:9200" -lco NOT_ANALYZED_FIELDS={ALL} \
+     "$(pwd)/data/obce.json"
+   $ ogr2ogr -lco INDEX_NAME=okresy "ES:http://localhost:9200" -lco NOT_ANALYZED_FIELDS={ALL} \
+     "$(pwd)/okresy.json"
 ```
 
 ```bash
    #Imported indices
    GET _cat/indices/obce,kraje,okresy?v
-   health status index  uuid                   pri rep docs.count docs.deleted store.size pri.store.size
-   yellow open   okresy 3LYqUkRcTdiBf1XQ0P7h-A   1   1         79            0      5.1mb          5.1mb
-   yellow open   obce   T-k8wud0Q5eH2J75nLITmg   1   1       2927            0     26.5mb         26.5mb
-   yellow open   kraje  2AA2LM0NRUO9vfqILaZtbg   1   1          8            0      1.8mb          1.8mb
+   health status index  uuid   pri rep docs.count docs.deleted store.size pri.store.size
+   yellow open   okresy uidA   1   1         79            0      5.1mb          5.1mb
+   yellow open   obce   uidB   1   1       2927            0     26.5mb         26.5mb
+   yellow open   kraje  uidC   1   1          8            0      1.8mb          1.8mb
 ```
 
 6. Ingest data into Elasticsearch and stop Logstash Docker container when documents are indexed. This is a one-time index job. Run the following command from the root of the repository. If all works as expected, then you will see in the output no errors related to the ingest process and documents currently being index will also be printed on the screen.
@@ -147,8 +150,8 @@ In the following section, I will describe the minimal steps required to build th
 ```bash
    # Check the index
    GET _cat/indices/covid-19-sk?v
-   health status index       uuid                   pri rep docs.count docs.deleted store.size pri.store.size
-   yellow open   covid-19-sk -5VUg-y_QJmItQ2qY6zoVA   1   1       1751            0    557.5kb        557.5kb
+   health status index       uuid     pri rep docs.count docs.deleted store.size pri.store.size
+   yellow open   covid-19-sk uidddd   1   1       1751            0    557.5kb        557.5kb
 ```
 
 5. Additionaly, import the template and actual data for annotations used in visualizations
@@ -159,7 +162,8 @@ In the following section, I will describe the minimal steps required to build th
      --data-binary "@template_milestones.json"; echo
    # You should see message: {"acknowledged":true}
    # Index actual data
-   curl -s -H "Content-Type: application/x-ndjson" -XPOST localhost:9200/_bulk --data-binary "@milestones.bulk"; echo
+   curl -s -H "Content-Type: application/x-ndjson" -XPOST localhost:9200/_bulk --data-binary \
+     "@milestones.bulk"; echo
 ```
 ```bash
    # List template
@@ -168,8 +172,8 @@ In the following section, I will describe the minimal steps required to build th
    milestones [milestones]   0
    # List index
    GET _cat/indices/milestones?v
-   health status index      uuid                   pri rep docs.count docs.deleted store.size pri.store.size
-   yellow open   milestones e3c-cNfaTg2JCyzGNZmX5Q   1   1         17            0      7.6kb          7.6kb
+   health status index      uuid     pri rep docs.count docs.deleted store.size pri.store.size
+   yellow open   milestones uidddd   1   1         17            0      7.6kb          7.6kb
 ```
 
 6. {{< a_blank "Import" "https://www.elastic.co/guide/en/kibana/current/managing-saved-objects.html#managing-saved-objects-export-objects" >}} `Saved Objects` from provided {{< a_blank "visualisations file" "https://github.com/radoondas/covid-19-slovakia/blob/master/data/visualisations.ndjson" >}} and adjust patterns appropriately if needed.
