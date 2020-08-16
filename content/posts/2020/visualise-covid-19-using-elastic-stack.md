@@ -67,6 +67,8 @@ The application stack of choice is
 For those with visual understanding, the pipeline of the data flow is very simple and straight forward.
 
 Logstash reads CSV file and indexing documents into Elasticsearch. Then the user is working with Kibana connected to Elasticsearch to view and analyze and visualize documents.
+<div class="box ">
+
 ```text
 +----------+     +----------+     +---------------+     +--------+     +------+
 |          |     |          |     |               |     |        |     |      |
@@ -74,6 +76,7 @@ Logstash reads CSV file and indexing documents into Elasticsearch. Then the user
 |          |     |          |     |               |     |        |     |      |
 +----------+     +----------+     +---------------+     +--------+     +------+
 ```
+</div>
 
 ##### Geospatial tools
 I use Slovakia geospatial data, and I published a different [post](/posts/2020/import-slovakia-regional-gis-data) on how to import Slovakia's GIS data into Elasticsearch. The post dives deeper into the details on how to index geospatial documents. Please read the article to get familiar with the setup, as it will help you with the following tutorial.
@@ -88,14 +91,20 @@ _Working Docker_ environment in case you need to set up GDAL wrapper and run Ela
 In the following section, I will describe the minimal steps required to build the same live dashboard on your local machine that will look like the dashboard at {{< a_blank "covid-19.radoondas.io" "https://covid-19.radoondas.io/" >}}.
 
 1. Clone my {{< a_blank "repository" "https://github.com/radoondas/covid-19-slovakia" >}} from Github to get all necessary data and configuration files.
+<div class="box ">
+
 ```bash
    $ git clone https://github.com/radoondas/covid-19-slovakia.git
 ```
+</div>
 
 2. Navigate to your local copy of the repository.
+<div class="box ">
+
 ```bash
    $ cd covid-19-slovakia
 ```
+</div>
 
 3. Make sure that you have your Elasticsearch cluster together with Kibana up and running. It can be any cluster, but a single Elasticsearch node with Kibana will serve the purpose perfectly fine. If you do not have your cluster at hand, use prepared Docker configuration located in the repository root - `docker-compose.yml`.
 
@@ -103,9 +112,12 @@ In the following section, I will describe the minimal steps required to build th
 
    Optionally, use {{< a_blank "Elastic cloud" "https://cloud.elastic.co/" >}} to spin up the cluster.
 
+<div class="box ">
+
 ```bash
    $ docker-compose up -d
 ```
+</div>
 
 4. Verify that your cluster is up and running. Open your browser and go to Kibana url `http://127.0.0.1:5601/`. You now see a `Home page` of
    Kibana.
@@ -115,6 +127,8 @@ In the following section, I will describe the minimal steps required to build th
    Read more in the section above dedicated to **geospatial tools**. After the import, you now have 3 indices in the cluster named `kraje` , `obce`, and `okresy`.
 
    Commands using the GDAL library for the reference (copy/paste might not work depending on your GDAL install method):
+<div class="box ">
+
 ```bash
    $ ogr2ogr -lco INDEX_NAME=kraje "ES:http://localhost:9200" -lco NOT_ANALYZED_FIELDS={ALL} \
      "$(pwd)/data/kraje.json"
@@ -123,6 +137,9 @@ In the following section, I will describe the minimal steps required to build th
    $ ogr2ogr -lco INDEX_NAME=okresy "ES:http://localhost:9200" -lco NOT_ANALYZED_FIELDS={ALL} \
      "$(pwd)/okresy.json"
 ```
+</div>
+
+<div class="box ">
 
 ```bash
    #Imported indices
@@ -132,6 +149,7 @@ In the following section, I will describe the minimal steps required to build th
    yellow open   obce   uidB   1   1       2927            0     26.5mb         26.5mb
    yellow open   kraje  uidC   1   1          8            0      1.8mb          1.8mb
 ```
+</div>
 
 6. Ingest data into Elasticsearch and stop Logstash Docker container when documents are indexed. This is a one-time index job. Run the following command from the root of the repository. If all works as expected, then you will see in the output no errors related to the ingest process and documents currently being index will also be printed on the screen.
 
@@ -139,6 +157,8 @@ In the following section, I will describe the minimal steps required to build th
    - we use a special template for correct mapping in elasticsearch `-v $(pwd)/template.json:/tmp/template.json`
    - we point input file to the local source file `-v $(pwd)/data/covid-19-slovensko.csv:/tmp/covid-19-slovensko.csv`
    - we use our custom Logstash configuration `-v $(pwd)/ls.conf:/usr/share/logstash/pipeline/logstash.conf`
+<div class="box ">
+
  ```bash
     docker run --rm -it --network=host \
     -v $(pwd)/template.json:/tmp/template.json \
@@ -146,6 +166,9 @@ In the following section, I will describe the minimal steps required to build th
     -v $(pwd)/ls.conf:/usr/share/logstash/pipeline/logstash.conf \
     docker.elastic.co/logstash/logstash:7.8.1
 ```
+</div>
+
+<div class="box ">
 
 ```bash
    # Check the index
@@ -153,8 +176,11 @@ In the following section, I will describe the minimal steps required to build th
    health status index       uuid     pri rep docs.count docs.deleted store.size pri.store.size
    yellow open   covid-19-sk uidddd   1   1       1751            0    557.5kb        557.5kb
 ```
+</div>
 
 5. Additionaly, import the template and actual data for annotations used in visualizations
+<div class="box ">
+
 ```bash
    cd data
    # Import index template
@@ -175,6 +201,7 @@ In the following section, I will describe the minimal steps required to build th
    health status index      uuid     pri rep docs.count docs.deleted store.size pri.store.size
    yellow open   milestones uidddd   1   1         17            0      7.6kb          7.6kb
 ```
+</div>
 
 6. {{< a_blank "Import" "https://www.elastic.co/guide/en/kibana/current/managing-saved-objects.html#managing-saved-objects-export-objects" >}} `Saved Objects` from provided {{< a_blank "visualisations file" "https://github.com/radoondas/covid-19-slovakia/blob/master/data/visualisations.ndjson" >}} and adjust patterns appropriately if needed.
 

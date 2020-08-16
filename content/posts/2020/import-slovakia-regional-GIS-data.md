@@ -38,6 +38,7 @@ Download the package for **First level of generalization (Prvá úroveň general
 
 Once you `unzip` the package, the content consists of different file types. We are interested in `shape` files with `.shp` file extension. Make sure you can see all the shapefiles, as shown below. Note, there are more files that are the content of the zip package. Do not touch them or delete them.
 Leave them as they are. They are essential for the GDAL library.
+<div class="box ">
 
 ```bash
 $ ls -l *.shp
@@ -46,7 +47,9 @@ $ ls -l *.shp
 -rw-rw-rw-@ 1 user  group  7325616 Mar  2 10:15 obec_1.shp
 -rw-rw-rw-@ 1 user  group  1400224 Mar  2 10:15 okres_1.shp
 -rw-rw-rw-@ 1 user  group   161820 Mar  2 10:15 sr_1.shp
+
 ```
+</div>
 
 To import geospatial data into Elasticsearch and to be able to use them in Kibana, use {{< a_blank "GDAL" "https://gdal.org/" >}} library. I have a  different [post](/posts/2020/simple-gdal-setup-using-docker) dedicated to just how to set up the GDAL library using a wrapper script around the latest Docker image.
 Please, read and follow the post if you do not have the latest version of GDAL or never used the library before.
@@ -58,32 +61,47 @@ library.
 {{< notebox color="is-warning is-light" >}}Make sure that you have up and running Elasticsearch cluster with Kibana before importing shape data using
 following commands.{{< /notebox >}}
 
+<div class="box ">
+
 ```bash
 $ ogr2ogr -lco INDEX_NAME=kraje -lco NOT_ANALYZED_FIELDS={ALL} \
   "ES:http://localhost:9200" "$(pwd)/kraj_1.shp"
+  
 $ ogr2ogr -lco INDEX_NAME=obce -lco NOT_ANALYZED_FIELDS={ALL} \
-  "ES:http://localhost:9200" "$(pwd)/obec_1.shp"  
+  "ES:http://localhost:9200" "$(pwd)/obec_1.shp"
+    
 $ ogr2ogr -lco INDEX_NAME=okresy -lco NOT_ANALYZED_FIELDS={ALL} \
   "ES:http://localhost:9200" "$(pwd)/okres_1.shp"
 ```
+</div>
 
 With the wrapper:
+<div class="box ">
+
 ```bash
 $ /path/to/dogr2ogr -lco INDEX_NAME=kraje -lco NOT_ANALYZED_FIELDS={ALL} \ 
   "ES:http://localhost:9200" "$(pwd)/kraj_1.shp"
+  
 $ /path/to/dogr2ogr -lco INDEX_NAME=obce -lco NOT_ANALYZED_FIELDS={ALL} \
-  "ES:http://localhost:9200" "$(pwd)/obec_1.shp"  
+  "ES:http://localhost:9200" "$(pwd)/obec_1.shp"
+    
 $ /path/to/dogr2ogr -lco INDEX_NAME=okresy -lco NOT_ANALYZED_FIELDS={ALL} \
   "ES:http://localhost:9200" "$(pwd)/okres_1.shp"
 ```
+</div>
 
 In case you need to connect to secured cluster do not hestitate and use authentication `http://user:passw@localhost:9200`.
+<div class="box ">
+
 ```bash
 $ ogr2ogr -lco INDEX_NAME=<index_name> -lco NOT_ANALYZED_FIELDS={ALL} \
   "ES:http://user:passw@localhost:9200" "$(pwd)/shape_file.shp"
 ```
+</div>
 
 The above commands will create three new indices in your Elasticsearch cluster. Use simple `_cat` API to check.
+<div class="box ">
+
 ```bash
 GET _cat/indices/obce,kraje,okresy?v
 health status index  uuid   pri rep docs.count docs.deleted store.size pri.store.size
@@ -91,6 +109,7 @@ yellow open   okresy uidA   1   1         79            0      5.1mb          5.
 yellow open   obce   uidB   1   1       2927            0     26.5mb         26.5mb
 yellow open   kraje  uidC   1   1          8            0      1.8mb          1.8mb
 ```
+</div>
 
 {{< title-h4 >}}Layers in Kibana Maps{{< /title-h4 >}}
 When the import is finished, you are ready to use your fresh geospatial data in {{< a_blank "Kibana Maps" "https://www.elastic.co/guide/en/kibana/current/maps.html" >}}
@@ -105,17 +124,22 @@ When the import is finished, you are ready to use your fresh geospatial data in 
 {{< figure src="/images/2020/07/index-pattern-3.png" title="Detail of the Index pattern" >}}
 {{< figure src="/images/2020/07/index-pattern-4.png" title="List of Index patterns" >}}
 
-3. Open [Maps](https://www.elastic.co/guide/en/kibana/current/maps.html) application in Kibana and you will see an empty map if this is your first one. {{< figure src="/images/2020/07/open-kibana-maps.png" title="" >}}
+3. Open [Maps](https://www.elastic.co/guide/en/kibana/current/maps.html) application in Kibana and you will see an empty map if this is your first one.
+
+{{< figure src="/images/2020/07/open-kibana-maps.png" title="" >}}
 
 4. On your new map, go ahead and `Add layer`.
-   {{< figure src="/images/2020/07/add-layer.png" title="Add layer" >}}
+
+{{< figure src="/images/2020/07/add-layer.png" title="Add layer" >}}
 
 5. Choose `Documents` from the list to show on your Layer. Do not forget to **Save** the layer after  you `Add layer` before moving to the next layer.
+
 {{< figure src="/images/2020/07/add-documents.png" title="" >}}
 {{< figure src="/images/2020/07/layer-documents.png" title="" >}}
 
 6. Repeat the process for all 3 indices and enjoy 3 layers of geospatial data.
-   {{< figure src="/images/2020/07/all-layers.png" title="All document layers" >}}
+
+{{< figure src="/images/2020/07/all-layers.png" title="All document layers" >}}
 
 You are now ready to use your newly imported geospatial data with Kibana Maps. Please check the documentation for more information on how to navigate or configure in detail your layers. I plan to post more articles in the future on the topic, so come back and check the new content.
 

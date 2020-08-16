@@ -26,6 +26,8 @@ The first step is to create a shell script and save it into your favorite locati
 without any further changes. The only difference between versions is the mount for the home directory.
 
 **macOS**
+<div class="box ">
+
  ```bash
 #!/bin/bash
 docker run --rm --network=host -u $(id -u ${USER}):$(id -g ${USER}) \
@@ -33,8 +35,11 @@ docker run --rm --network=host -u $(id -u ${USER}):$(id -g ${USER}) \
 osgeo/gdal:alpine-small-latest \
 ogr2ogr "$@"
 ```
+</div>
 
 **Linux**
+<div class="box ">
+
 ```bash
 #!/bin/bash
 docker run --rm --network=host -u $(id -u ${USER}):$(id -g ${USER}) \
@@ -42,6 +47,7 @@ docker run --rm --network=host -u $(id -u ${USER}):$(id -g ${USER}) \
 osgeo/gdal:alpine-small-latest \
 ogr2ogr "$@"
 ```
+</div>
 
 #### Execute the script
 The next task is to use and execute your new wrapper for the GDAL library. Either with the full path to your script or update the script's path in `$PATH`
@@ -50,21 +56,29 @@ variable and use it as any other CLI command. I'll leave it up to you, and I hav
 Note: The name of the saved script from the previous step is `dogr2ogr` in my case.
 
 1. Ingest content of the GeoJSON file directly into Elasticsearch
+<div class="box ">
 
 ```bash
 dogr2ogr -lco INDEX_NAME=index-name  "ES:http://elastic:changeme@localhost:9200"  \
   "$(pwd)/file-name.geojson"
 ```
+</div>
 2. Ingest Shape file directly into Elasticsearch
+<div class="box ">
+
 ```bash
 dogr2ogr -lco INDEX_NAME=index-name  "ES:http://elastic:changeme@localhost:9200"  \
   "$(pwd)/file-name.shp"
 ```
+</div>
 3. Convert Shape file to GeoJSON format using full path to the script
+<div class="box ">
+
 ```bash
 ~/opt/bin/dogr2ogr -f GeoJSON "$(pwd)/file-name.geojson" "$(pwd)/file-name.shp" \
   -lco RFC7946=YES
 ```
+</div>
 {{< notebox color="is-warning is-light" >}}Note: <code>$(pwd)</code> variable in above examples is important as you must use full paths to the file in
 the context of the Docker to work correctly with the input.{{< /notebox >}}
 
