@@ -135,7 +135,7 @@ In the following section, I will describe the minimal steps required to build th
    $ ogr2ogr -lco INDEX_NAME=obce "ES:http://localhost:9200" -lco NOT_ANALYZED_FIELDS={ALL} \
      "$(pwd)/data/obce.json"
    $ ogr2ogr -lco INDEX_NAME=okresy "ES:http://localhost:9200" -lco NOT_ANALYZED_FIELDS={ALL} \
-     "$(pwd)/okresy.json"
+     "$(pwd)/data/okresy.json"
 ```
 </div>
 
@@ -184,7 +184,7 @@ In the following section, I will describe the minimal steps required to build th
 ```bash
    cd data
    # Import index template
-   curl -s -H "Content-Type: application/x-ndjson" -XPUT "localhost:9208/_template/milestones" \
+   curl -s -H "Content-Type: application/x-ndjson" -XPUT "localhost:9200/_template/milestones" \
      --data-binary "@template_milestones.json"; echo
    # You should see message: {"acknowledged":true}
    # Index actual data
