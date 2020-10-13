@@ -6,7 +6,7 @@ comments: true
 share: true
 categories: [ "TIL", "hands on" ]
 tags: [ "gdal", "GIS", "kibana", "maps" ]
-featured: true
+featured: false
 categoryFeatured: false
 ---
 {{< a_blank "Elastic Map Service" "https://www.elastic.co/elastic-maps-service" >}} nowadays comes with {{< a_blank "Slovakia regions"
