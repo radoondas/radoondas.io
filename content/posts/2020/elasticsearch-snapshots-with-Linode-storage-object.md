@@ -16,7 +16,7 @@ Using the supported vendor's storage option is easy and convenient. But, can you
 {{< title-h4 >}}Introduction{{< /title-h4 >}}
 As a user, you may often end up using a different object storage solutions for various reasons. Whether it is because of limited access, project decisions and definitions, or architecture requirements, using a custom object storage for Elasticsearch can be complicated.
 
-However, if your object storage solution claimes to be S3-compatible, you can try to configure it as a snapshot repository using the Elasticsearch {{< a_blank "S3 plugin" "https://www.elastic.co/guide/en/elasticsearch/plugins/current/repository-s3.html" >}}. The plugin is developed to support AWS S3 repositories. Still, other vendors and developers try to get into the market by creating their object storage compatible with AWS S3 API's so the user does not have to change their code/application/architecture ...
+However, if your object storage solution claims to be S3-compatible, you can try to configure it as a snapshot repository using the Elasticsearch {{< a_blank "S3 plugin" "https://www.elastic.co/guide/en/elasticsearch/plugins/current/repository-s3.html" >}}. The plugin is developed to support AWS S3 repositories. Still, other vendors and developers try to get into the market by creating their object storage compatible with AWS S3 API's so the user does not have to change their code/application/architecture ...
 
 One of such implementations has {{< a_blank "Linode" "https://www.linode.com/" >}}, which offers their own {{< a_blank "object storage" "https://www.linode.com/docs/platform/object-storage/" >}} solution for their users. As I am using their services for my own projects, let's have a look at how I connect their object storage to Elasticsearch as a repository for snapshots.
 
@@ -63,12 +63,6 @@ You might see similar reponse:
 <div class="box ">
 
 ```bash
-#! Deprecation: [access_key] setting was deprecated in Elasticsearch and will be removed 
-#in a future release! See the breaking changes documentation for the next major version.
-#! Deprecation: [secret_key] setting was deprecated in Elasticsearch and will be removed 
-#in a future release! See the breaking changes documentation for the next major version.
-#! Deprecation: Using s3 access/secret key from repository settings. Instead store these 
-#in named clients and the elasticsearch keystore for secure settings.
 {
   "acknowledged" : true
 }
