@@ -192,7 +192,8 @@ If you want to create a snapshot from the data periodically, do not forget to se
 {{< title-h4 >}}Summary/FAQ{{< /title-h4 >}}
 
 - Does it work? **Yes**, but test it for yourself.
-- Is Linode object storage officially supported by Elastic? **No**.
+- What types of environment the setup in the post work? **You can run this in any environment where you are able to install S3 plugin**, and you are able to connect to the Linode object storage.
+- Is Linode object storage officially supported by Elastic? **No**. Elastic Supports {{< a_blank "following" "https://www.elastic.co/guide/en/elasticsearch/reference/current/snapshots-register-repository.html#snapshots-repository-plugins" >}} repository backends.
 - Can you use it in your (prod) environment? **It depends**. It depends on many factors and what you expect from the final solution. It depends on your team and the ability to make sure that you test everything, and you know how to make it reliable and resilient.
 - Will the same approach work on other Object storages? **I do not know**. On the other hand, no one will stop you from testing it using the above approach and figure it out. Then, let me know.
 - Is it fun? **Definitely yes**.
