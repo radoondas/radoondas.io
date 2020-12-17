@@ -79,9 +79,9 @@ Logstash reads CSV file and indexing documents into Elasticsearch. Then the user
 </div>
 
 ##### Geospatial tools
-I use Slovakia geospatial data, and I published a different [post](/posts/2020/import-slovakia-regional-gis-data) on how to import Slovakia's GIS data into Elasticsearch. The post dives deeper into the details on how to index geospatial documents. Please read the article to get familiar with the setup, as it will help you with the following tutorial.
+I use Slovakia geospatial data, and I published a different [post](/posts/2020/import-slovakia-regional-gis-data/) on how to import Slovakia's GIS data into Elasticsearch. The post dives deeper into the details on how to index geospatial documents. Please read the article to get familiar with the setup, as it will help you with the following tutorial.
 
-If you do not have the GDAL library already installed, then read also post on how to [setup latest GDAL](/posts/2020/simple-gdal-setup-using-docker) using simple wrapper script for Docker image.
+If you do not have the GDAL library already installed, then read also post on how to [setup latest GDAL](/posts/2020/simple-gdal-setup-using-docker/) using simple wrapper script for Docker image.
 
 #####  Optional
 _Working Docker_ environment in case you need to set up GDAL wrapper and run Elasticsearch cluster using Docker.
