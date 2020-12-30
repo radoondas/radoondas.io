@@ -51,7 +51,7 @@ $ ls -l *.shp
 ```
 </div>
 
-To import geospatial data into Elasticsearch and to be able to use them in Kibana, use {{< a_blank "GDAL" "https://gdal.org/" >}} library. I have a  different [post](/posts/2020/simple-gdal-setup-using-docker) dedicated to just how to set up the GDAL library using a wrapper script around the latest Docker image.
+To import geospatial data into Elasticsearch and to be able to use them in Kibana, use {{< a_blank "GDAL" "https://gdal.org/" >}} library. I have a  different [post](/posts/2020/simple-gdal-setup-using-docker/) dedicated to just how to set up the GDAL library using a wrapper script around the latest Docker image.
 Please, read and follow the post if you do not have the latest version of GDAL or never used the library before.
 
 We will use the latest GDAL library. You can read about options either in the official GDAL documentation or read Elastic
