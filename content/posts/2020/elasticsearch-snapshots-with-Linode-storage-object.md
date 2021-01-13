@@ -42,8 +42,7 @@ To register our object storage as a {{< a_blank "snapshot repository" "https://w
 
 This is the actual 'trick' to register third party S3 compatible object storage in Elasticsearch. The UI does not support all parameters, and you need to use the API call.
 
-<div class="box ">
-
+{{< box-start >}}
 ```json
 PUT /_snapshot/my_linode_repository
 {
@@ -57,21 +56,18 @@ PUT /_snapshot/my_linode_repository
   }
 }
 ```
-</div>
-
+{{< box-end >}}
 You might see similar reponse:
-<div class="box ">
-
+{{< box-start >}}
 ```bash
 {
   "acknowledged" : true
 }
 ```
-</div>
+{{< box-end >}}
 
 Verify the repository `POST /_snapshot/my_linode_repository/_verify`. You have to make sure that you will see all nodes holding the data in the response.
-<div class="box ">
-
+{{< box-start >}}
 ```json
 {
   "nodes" : {
@@ -87,12 +83,10 @@ Verify the repository `POST /_snapshot/my_linode_repository/_verify`. You have t
   }
 }
 ```
-</div>
-
+{{< box-end >}}
 
 You can also check available repositories which are configured in the cluster using another API call
-<div class="box ">
-
+{{< box-start >}}
 ```json
 GET /_snapshot/
 {
@@ -107,7 +101,7 @@ GET /_snapshot/
   }
 }
 ```
-</div>
+{{< box-end >}}
 
 ... or check the {{< a_blank "Snapshot and Restore" "https://www.elastic.co/guide/en/kibana/current/snapshot-repositories.html" >}} UI in Kibana in the `Repositories` panel.
 {{< figure src="/images/2020/10/snapshot-repositories.png" title="" >}}
@@ -118,8 +112,7 @@ Your repository is now configured and ready to be used, taking a snapshot in the
 The easiest way is to take a {{< a_blank "snapshot" "https://www.elastic.co/guide/en/elasticsearch/reference/current/snapshots-take-snapshot.html" >}} using a simple {{< a_blank "API call" "https://www.elastic.co/guide/en/elasticsearch/reference/current/create-snapshot-api.html" >}}. Some would argue that it is easier to take s snapshot using the Kibana UI, and I leave the decision to you.
 To take a snapshot, execute a simple API call and optionally add a list of indices or other available options. Feel free to check the full {{< a_blank "documentation" "https://www.elastic.co/guide/en/elasticsearch/reference/current/create-snapshot-api.html" >}}.
 
-<div class="box ">
-
+{{< box-start >}}
 ```json
 PUT /_snapshot/my_linode_repository/snapshot_1
 {
@@ -128,12 +121,11 @@ PUT /_snapshot/my_linode_repository/snapshot_1
   "include_global_state": false
 }
 ```
-</div>
+{{< box-end >}}
 
 After the execution, check on the progress of the snapshot with another API call.
 
-<div class="box ">
-
+{{< box-start >}}
 ```json
 GET /_snapshot/my_linode_repository/snapshot_1
 {
@@ -176,7 +168,7 @@ GET /_snapshot/my_linode_repository/snapshot_1
   ]
 }
 ```
-</div>
+{{< box-end >}}
 
 In any case, Kibana offers a great UI for {{< a_blank "Snapshot management" "https://www.elastic.co/guide/en/kibana/current/snapshot-repositories.html" >}} which I strongly suggest having a look at. The Kibana application will significantly simplify your daily tasks and is more accessible for less technical people in your team.
 

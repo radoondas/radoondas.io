@@ -38,8 +38,7 @@ Download the package for **First level of generalization (Prvá úroveň general
 
 Once you `unzip` the package, the content consists of different file types. We are interested in `shape` files with `.shp` file extension. Make sure you can see all the shapefiles, as shown below. Note, there are more files that are the content of the zip package. Do not touch them or delete them.
 Leave them as they are. They are essential for the GDAL library.
-<div class="box ">
-
+{{< box-start >}}
 ```bash
 $ ls -l *.shp
 -rw-rw-rw-@ 1 user  group   495124 Mar  2 10:15 kraj_1.shp
@@ -49,7 +48,7 @@ $ ls -l *.shp
 -rw-rw-rw-@ 1 user  group   161820 Mar  2 10:15 sr_1.shp
 
 ```
-</div>
+{{< box-end >}}
 
 To import geospatial data into Elasticsearch and to be able to use them in Kibana, use {{< a_blank "GDAL" "https://gdal.org/" >}} library. I have a  different [post](/posts/2020/simple-gdal-setup-using-docker/) dedicated to just how to set up the GDAL library using a wrapper script around the latest Docker image.
 Please, read and follow the post if you do not have the latest version of GDAL or never used the library before.
@@ -61,8 +60,7 @@ library.
 {{< notebox color="is-warning is-light" >}}Make sure that you have up and running Elasticsearch cluster with Kibana before importing shape data using
 following commands.{{< /notebox >}}
 
-<div class="box ">
-
+{{< box-start >}}
 ```bash
 $ ogr2ogr -lco INDEX_NAME=kraje -lco NOT_ANALYZED_FIELDS={ALL} \
   "ES:http://localhost:9200" "$(pwd)/kraj_1.shp"
@@ -73,11 +71,10 @@ $ ogr2ogr -lco INDEX_NAME=obce -lco NOT_ANALYZED_FIELDS={ALL} \
 $ ogr2ogr -lco INDEX_NAME=okresy -lco NOT_ANALYZED_FIELDS={ALL} \
   "ES:http://localhost:9200" "$(pwd)/okres_1.shp"
 ```
-</div>
+{{< box-end >}}
 
 With the wrapper:
-<div class="box ">
-
+{{< box-start >}}
 ```bash
 $ /path/to/dogr2ogr -lco INDEX_NAME=kraje -lco NOT_ANALYZED_FIELDS={ALL} \ 
   "ES:http://localhost:9200" "$(pwd)/kraj_1.shp"
@@ -88,20 +85,18 @@ $ /path/to/dogr2ogr -lco INDEX_NAME=obce -lco NOT_ANALYZED_FIELDS={ALL} \
 $ /path/to/dogr2ogr -lco INDEX_NAME=okresy -lco NOT_ANALYZED_FIELDS={ALL} \
   "ES:http://localhost:9200" "$(pwd)/okres_1.shp"
 ```
-</div>
+{{< box-end >}}
 
 In case you need to connect to secured cluster do not hestitate and use authentication `http://user:passw@localhost:9200`.
-<div class="box ">
-
+{{< box-start >}}
 ```bash
 $ ogr2ogr -lco INDEX_NAME=<index_name> -lco NOT_ANALYZED_FIELDS={ALL} \
   "ES:http://user:passw@localhost:9200" "$(pwd)/shape_file.shp"
 ```
-</div>
+{{< box-end >}}
 
 The above commands will create three new indices in your Elasticsearch cluster. Use simple `_cat` API to check.
-<div class="box ">
-
+{{< box-start >}}
 ```bash
 GET _cat/indices/obce,kraje,okresy?v
 health status index  uuid   pri rep docs.count docs.deleted store.size pri.store.size
@@ -109,7 +104,7 @@ yellow open   okresy uidA   1   1         79            0      5.1mb          5.
 yellow open   obce   uidB   1   1       2927            0     26.5mb         26.5mb
 yellow open   kraje  uidC   1   1          8            0      1.8mb          1.8mb
 ```
-</div>
+{{< box-end >}}
 
 {{< title-h4 >}}Layers in Kibana Maps{{< /title-h4 >}}
 When the import is finished, you are ready to use your fresh geospatial data in {{< a_blank "Kibana Maps" "https://www.elastic.co/guide/en/kibana/current/maps.html" >}}

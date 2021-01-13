@@ -91,20 +91,20 @@ _Working Docker_ environment in case you need to set up GDAL wrapper and run Ela
 In the following section, I will describe the minimal steps required to build the same live dashboard on your local machine that will look like the dashboard at {{< a_blank "covid-19.radoondas.io" "https://covid-19.radoondas.io/" >}}.
 
 1. Clone my {{< a_blank "repository" "https://github.com/radoondas/covid-19-slovakia" >}} from Github to get all necessary data and configuration files.
-<div class="box ">
 
+{{< box-start >}}
 ```bash
    $ git clone https://github.com/radoondas/covid-19-slovakia.git
 ```
-</div>
+{{< box-end >}}
 
 2. Navigate to your local copy of the repository.
-<div class="box ">
 
+{{< box-start >}}
 ```bash
    $ cd covid-19-slovakia
 ```
-</div>
+{{< box-end >}}
 
 3. Make sure that you have your Elasticsearch cluster together with Kibana up and running. It can be any cluster, but a single Elasticsearch node with Kibana will serve the purpose perfectly fine. If you do not have your cluster at hand, use prepared Docker configuration located in the repository root - `docker-compose.yml`.
 
@@ -112,12 +112,11 @@ In the following section, I will describe the minimal steps required to build th
 
    Optionally, use {{< a_blank "Elastic cloud" "https://cloud.elastic.co/" >}} to spin up the cluster.
 
-<div class="box ">
-
+{{< box-start >}}
 ```bash
    $ docker-compose up -d
 ```
-</div>
+{{< box-end >}}
 
 4. Verify that your cluster is up and running. Open your browser and go to Kibana url `http://127.0.0.1:5601/`. You now see a `Home page` of
    Kibana.
@@ -127,8 +126,8 @@ In the following section, I will describe the minimal steps required to build th
    Read more in the section above dedicated to **geospatial tools**. After the import, you now have 3 indices in the cluster named `kraje` , `obce`, and `okresy`.
 
    Commands using the GDAL library for the reference (copy/paste might not work depending on your GDAL install method):
-<div class="box ">
 
+{{< box-start >}}
 ```bash
    $ ogr2ogr -lco INDEX_NAME=kraje "ES:http://localhost:9200" -lco NOT_ANALYZED_FIELDS={ALL} \
      "$(pwd)/data/kraje.json"
@@ -137,10 +136,9 @@ In the following section, I will describe the minimal steps required to build th
    $ ogr2ogr -lco INDEX_NAME=okresy "ES:http://localhost:9200" -lco NOT_ANALYZED_FIELDS={ALL} \
      "$(pwd)/data/okresy.json"
 ```
-</div>
+{{< box-end >}}
 
-<div class="box ">
-
+{{< box-start >}}
 ```bash
    #Imported indices
    GET _cat/indices/obce,kraje,okresy?v
@@ -149,7 +147,7 @@ In the following section, I will describe the minimal steps required to build th
    yellow open   obce   uidB   1   1       2927            0     26.5mb         26.5mb
    yellow open   kraje  uidC   1   1          8            0      1.8mb          1.8mb
 ```
-</div>
+{{< box-end >}}
 
 6. Ingest data into Elasticsearch and stop Logstash Docker container when documents are indexed. This is a one-time index job. Run the following command from the root of the repository. If all works as expected, then you will see in the output no errors related to the ingest process and documents currently being index will also be printed on the screen.
 
@@ -157,8 +155,8 @@ In the following section, I will describe the minimal steps required to build th
    - we use a special template for correct mapping in elasticsearch `-v $(pwd)/template.json:/tmp/template.json`
    - we point input file to the local source file `-v $(pwd)/data/covid-19-slovensko.csv:/tmp/covid-19-slovensko.csv`
    - we use our custom Logstash configuration `-v $(pwd)/ls.conf:/usr/share/logstash/pipeline/logstash.conf`
-<div class="box ">
 
+{{< box-start >}}
  ```bash
     docker run --rm -it --network=host \
     -v $(pwd)/template.json:/tmp/template.json \
@@ -166,21 +164,20 @@ In the following section, I will describe the minimal steps required to build th
     -v $(pwd)/ls.conf:/usr/share/logstash/pipeline/logstash.conf \
     docker.elastic.co/logstash/logstash:7.8.1
 ```
-</div>
+{{< box-end >}}
 
-<div class="box ">
-
+{{< box-start >}}
 ```bash
    # Check the index
    GET _cat/indices/covid-19-sk?v
    health status index       uuid     pri rep docs.count docs.deleted store.size pri.store.size
    yellow open   covid-19-sk uidddd   1   1       1751            0    557.5kb        557.5kb
 ```
-</div>
+{{< box-end >}}
 
-5. Additionaly, import the template and actual data for annotations used in visualizations
-<div class="box ">
+7. Additionaly, import the template and actual data for annotations used in visualizations
 
+{{< box-start >}}
 ```bash
    cd data
    # Import index template
@@ -201,14 +198,14 @@ In the following section, I will describe the minimal steps required to build th
    health status index      uuid     pri rep docs.count docs.deleted store.size pri.store.size
    yellow open   milestones uidddd   1   1         17            0      7.6kb          7.6kb
 ```
-</div>
+{{< box-end >}}
 
-6. {{< a_blank "Import" "https://www.elastic.co/guide/en/kibana/current/managing-saved-objects.html#managing-saved-objects-export-objects" >}} `Saved Objects` from provided {{< a_blank "visualisations file" "https://github.com/radoondas/covid-19-slovakia/blob/master/data/visualisations.ndjson" >}} and adjust patterns appropriately if needed.
+8. {{< a_blank "Import" "https://www.elastic.co/guide/en/kibana/current/managing-saved-objects.html#managing-saved-objects-export-objects" >}} `Saved Objects` from provided {{< a_blank "visualisations file" "https://github.com/radoondas/covid-19-slovakia/blob/master/data/visualisations.ndjson" >}} and adjust patterns appropriately if needed.
 
     _Note, if you named imported indices for geospatial data as in the example (kraje,okresy, obce), then there is no need to adjust index patterns._
     {{< figure src="/images/2020/07/import-saved-objects.png" title="" >}}
 
-7. Navigate to `Dashboards` and find the one with name `[covid-19] Overview Dashboard`, open and check the content.
+9. Navigate to `Dashboards` and find the one with name `[covid-19] Overview Dashboard`, open and check the content.
 {{< figure src="/images/2020/07/list-dashboards.png" title="" >}}
 If all goes right, this is the dashboard you will see (or similar as visualisations might develop over the time).
 {{< figure src="/images/2020/07/dashboard-view.png" title="Covid-19 Dashboard" >}}
