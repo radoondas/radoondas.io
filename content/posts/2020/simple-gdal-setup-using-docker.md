@@ -6,7 +6,7 @@ comments: true
 share: true
 categories: ["TIL", "hands on"]
 tags: ["docker", "gdal"]
-featured: true
+featured: false
 categoryFeatured: false
 ---
 I often work with different geospatial data sets, including geolocation information, and I want to present documents in the context of the Map's position. To get the job done, I use Elastic {{< a_blank "Kibana Maps" "https://www.elastic.co/guide/en/kibana/current/maps.html" >}} for my visualizations. Elastic provides {{< a_blank "Elastic map service" "https://www.elastic.co/elastic-maps-service" >}} (ESMS), which anyone can use for geospatial visualizations. The service includes different {{< a_blank "vector layers" "https://maps.elastic.co/#file/world_countries" >}} out of the
