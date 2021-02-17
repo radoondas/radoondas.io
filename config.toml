@@ -34,6 +34,7 @@ rssLimit = 10
     '''
     themeURL = "https://github.com/radoondas/hugo-brok"
     siteSourceCode = "https://github.com/radoondas/radoondas.io"
+    featuredPosts = 4
 
 [[menu.main]]
     name = "HOME"
