@@ -27,13 +27,15 @@ The data source consists of the file in the CSV format where each line represent
 
 The very first line of the CSV is the names of tornadoes properties (columns), and the explanation of each column is described in the original {{< a_blank "document" "https://www.spc.noaa.gov/wcm/data/SPC_severe_database_description.pdf" >}}.
 ```
-"om","yr","mo","dy","date","time","tz","st","stf","stn","mag","inj","fat","loss","closs","slat","slon","elat","elon",
+"om","yr","mo","dy","date","time","tz","st","stf","stn",
+"mag","inj","fat","loss","closs","slat","slon","elat","elon",
 "len","wid","ns","sn","sg","f1","f2","f3","f4","fc"
 ```
 
 A random tornado event from the CSV file might look like the following.
 ```
-617024,2018,12,31,2018-12-31,14:38:00,3,IN,18,0,1,0,0,20000,0,38.0935,-86.0869,38.1000,-86.0470,2.2000,140,1,1,1,61,0,0,0,0
+617024,2018,12,31,2018-12-31,14:38:00,3,IN,18,0,1,0,0,20000,
+0,38.0935,-86.0869,38.1000,-86.0470,2.2000,140,1,1,1,61,0,0,0,0
 ```
 
 Unfortunately, the CSV format is not ready for Elasticsearch, and we need to transform these lines into a JSON document. We also need to make a few transformations to create the tornado event with the timestamp and Geographic Points representing the start and end of the tornado track. Some of the documents only have the starting position of the Tornado. To process lines in to correct JSON document, we will use {{< a_blank "ingest pipeline" "https://github.com/radoondas/examples/blob/master/radoondas.io/historical-tornado-tracks/conf/pipeline_tornadoes.json" >}}, and the final event will look similar to the one below.
@@ -116,7 +118,7 @@ Let me also briefly mention other options - not discussed in this post - and not
 - You can use Logstash not only for log forwarding but also to replace the ingest pipeline in Elasticsearch. To do that, you have to configure a series of {{< a_blank "filters" "https://www.elastic.co/guide/en/logstash/current/filter-plugins.html" >}} to replicate Elasticsearch's ingest pipeline behavior.
 - In case you would have GEOJSON file format instead of the CSV, you could also use the GDAL library to upload documents to Elasticsearch. I wrote a short [blog post](https://radoondas.io/posts/2020/simple-gdal-setup-using-docker/) about how to do that, and it is based on a great [post](https://www.elastic.co/blog/how-to-ingest-geospatial-data-into-elasticsearch-with-gdal) published by Elastic.
 
-{{< title-h4 >}}(Elastic) Ingest pipeline{{< /title-h4 >}}
+{{< title-h4 >}}(Elasticsearch) Ingest pipeline{{< /title-h4 >}}
 To get our Tornado document transformed into JSON as described above, we will configure Elasticsearch {{< a_blank "ingest pipeline" "https://www.elastic.co/guide/en/elasticsearch/reference/current/pipeline.html" >}} to parse the document before it is saved into the index. I did prepare the pipeline, and you can find the {{< a_blank "source code" "https://github.com/radoondas/examples/blob/master/radoondas.io/historical-tornado-tracks/conf/pipeline_tornadoes.json" >}} in the GitHub repository.
 
 The pipeline consists of several basic processors ({{< a_blank "csv" "https://www.elastic.co/guide/en/elasticsearch/reference/current/csv-processor.html" >}}, {{< a_blank "set" "https://www.elastic.co/guide/en/elasticsearch/reference/current/set-processor.html" >}}, {{< a_blank "convert" "https://www.elastic.co/guide/en/elasticsearch/reference/current/convert-processor.html" >}}, {{< a_blank "remove" "https://www.elastic.co/guide/en/elasticsearch/reference/current/remove-processor.html" >}}) and also uses simple {{< a_blank "condition in the processors" "https://www.elastic.co/guide/en/elasticsearch/reference/current/conditionals-with-multiple-pipelines.html" >}}.
