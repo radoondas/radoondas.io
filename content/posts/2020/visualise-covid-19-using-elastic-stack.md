@@ -108,7 +108,7 @@ In the following section, I will describe the minimal steps required to build th
 
 3. Make sure that you have your Elasticsearch cluster together with Kibana up and running. It can be any cluster, but a single Elasticsearch node with Kibana will serve the purpose perfectly fine. If you do not have your cluster at hand, use prepared Docker configuration located in the repository root - `docker-compose.yml`.
 
-   To use `docker-compose` environment run following command, and it will spin up 1 node cluster with version 7.8.1.
+   To use `docker-compose` environment run following command, and it will spin up 1 node cluster with version 7.9.3.
 
    Optionally, use {{< a_blank "Elastic cloud" "https://cloud.elastic.co/" >}} to spin up the cluster.
 
