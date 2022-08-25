@@ -219,6 +219,6 @@ Note: The adjustment of all saved objects should not be necessary if you used `o
 - Logstash {{< a_blank "CSV filter plugin" "https://www.elastic.co/guide/en/logstash/current/plugins-filters-csv.html" >}}
 - Elasticsearch {{< a_blank "templates" "https://www.elastic.co/guide/en/elasticsearch/reference/current/index-templates.html" >}}
 
-Note: **Tested with Elasticsearch v7.17.5 and Logstash v7.8.1**
+   **Note: Tested with Elasticsearch v7.17.5 and Logstash v7.8.1**
 ---
 Let me know if you have learned something new, or if you were able to follow this hands-on tutorial successfully. Feel free to comment or suggest me how to improve the content so you can enjoy it more.
