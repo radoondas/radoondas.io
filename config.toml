@@ -15,7 +15,7 @@ rssLimit = 10
     description = "description"
     email = "rado@radoondas.io"
     address = "Slovakia"
-    year = 2022
+    year = 2023
     avatar = "images/rado.jpg"
     background = ""
     favicon = "images/favicon.png"
@@ -77,7 +77,7 @@ rssLimit = 10
 
 [params.google.analytics]
     enabled = true
-    trackerID = "UA-158793938-1"
+    trackerID = "G-3VZTTLJZP5"
 
 [[params.social]]
 	title = "twitter"
